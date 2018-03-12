@@ -35,8 +35,8 @@ services:
     restart: always
     image: adriel/denyhosts
     volumes:
-	- /var/log/auth.log:/var/log/auth.log:ro
-	- /etc/hosts.deny:/etc/hosts.deny
+      - /var/log/auth.log:/var/log/auth.log:ro
+      - /etc/hosts.deny:/etc/hosts.deny
 
   frps:
     container_name: frps
