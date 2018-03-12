@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+
+  ignite:
+    container_name: ignite
+    image: goignite/ignite
+    volumes:
+      - "./ignite/data:/root/ignite/data"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      - HOST_ADDRESS=server-ip-address
+      - HOST_FROM = 1024
+      - HOST_TO = 1060
+    ports:
+      - "12580:5000"
+    restart: always
+
+  ignite-admin:
+    container_name: ignite-admin
+    image: goignite/ignite-admin
+    volumes:
+      - "./ignite/data:/root/ignite/data"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      - AUTH_USERNAME=command
+      - AUTH_PASSWORD=fuckGFW
+      - Auth_SECRET=ignite2017dfarew432tdsvde3
+    ports:
+      - “10086:8000"
+    restart: always
+
+  denyhosts:
+    container_name: denyHosts
+    restart: always
+    image: adriel/denyhosts
+    volumes:
+	- /var/log/auth.log:/var/log/auth.log:ro
+	- /etc/hosts.deny:/etc/hosts.deny
+
+  frps:
+    container_name: frps
+    image: hahoo/frp:latest
+    command: /app/frp/frps -c /app/frp/frps.ini
+    ports:
+        - 7000:7000
+        - 7500:7500
+        - 6000:6000
+        - 5000:5000
+    restart: always
+    volumes:
+        - ./frps/frps.ini:/app/frp/frps.ini
+
+  portainer:
+    container_name: portainer
+    image: portainer/portainer
+    volumes:
+        - "./portainer/data:/data"
+        - "/var/run/docker.sock:/var/run/docker.sock"
+    ports:
+        - "9000:9000"
+    restart: always
