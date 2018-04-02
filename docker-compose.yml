@@ -60,3 +60,13 @@ services:
     ports:
         - 9000:9000
     restart: always
+
+  gogs:
+    container_name: gogs
+    image: gogs/gogs
+    volumes:
+        - ./gogs/data:/data
+    ports:
+        - 10022:22
+        - 10080:3000
+    restart: always
