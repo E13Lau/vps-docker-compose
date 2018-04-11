@@ -6,4 +6,7 @@ curl -L https://github.com/docker/compose/releases/download/1.20.1/docker-compos
 
 chmod +x /usr/local/bin/docker-compose
 
+cd ~/vps-docker-compose/
+docker-compose up -d
+
 wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh && chmod +x bbr.sh && ./bbr.sh
